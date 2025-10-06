@@ -1,6 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from sqlmodel import SQLModel, Field, Session, create_engine, select
 from typing import Optional
+import httpx
+CRM_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/12643918/u9et2sa/"
 
 app = FastAPI()
 
@@ -32,6 +34,14 @@ def create_lead(lead: Lead):
         session.add(lead)
         session.commit()
         session.refresh(lead)
+
+        # Send lead data to CRM
+        try:
+            response = httpx.post(CRM_WEBHOOK_URL, json=lead.model_dump())
+            response.raise_for_status()
+        except Exception as e:
+            print(f"Failed to send lead to CRM: {e}")
+
         return lead
 
 @app.get("/leads")

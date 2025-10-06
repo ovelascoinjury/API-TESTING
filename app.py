@@ -24,6 +24,10 @@ def create_db_and_tables():
 def on_startup():
     create_db_and_tables()
 
+@app.get("/")
+def health():
+    return {"Welcome! to Your API"}
+
 @app.get("/health")
 def health():
     return {"ok": True}

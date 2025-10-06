@@ -25,7 +25,7 @@ def on_startup():
     create_db_and_tables()
 
 @app.get("/")
-def health():
+def welcome():
     return {"Welcome! to Your API"}
 
 @app.get("/health")

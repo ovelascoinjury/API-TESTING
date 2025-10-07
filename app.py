@@ -2,6 +2,9 @@ from fastapi import FastAPI, HTTPException
 from sqlmodel import SQLModel, Field, Session, create_engine, select
 from typing import Optional
 import httpx
+import os
+os.remove("leads.db")
+
 CRM_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/12643918/u9et2sa/"
 
 app = FastAPI()

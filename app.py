@@ -13,6 +13,7 @@ engine = create_engine(sqlite_url, echo=True)  # echo=True prints SQL (helpful f
 
 class Lead(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
+    first_name: str
     last_name: str
     company: str
     status: str = "New"
